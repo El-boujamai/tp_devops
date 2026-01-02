@@ -1,0 +1,16 @@
+name: Mon-Pipeline-DevOps
+
+on: [push] # Le déclencheur : le robot s'active à chaque "git push"
+
+jobs:
+  Verification-et-Build:
+    runs-on: ubuntu-latest # Le robot utilise un ordinateur Linux virtuel
+    steps:
+      - name: Recupérer le code
+        uses: actions/checkout@v3 # Le robot télécharge ton code
+
+      - name: Tester la syntaxe Node
+        run: node --check app.js # Le robot vérifie s'il y a des fautes de frappe
+
+      - name: Construire l'image Docker
+        run: docker build -t mon-app-image:latest . # Le robot emballe l'app
